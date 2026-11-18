@@ -1,10 +1,24 @@
 <template>
     <section>
-        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/132.svg" alt="Pokémon" class="brightness-0 h-[200px]" />
+        <img  v-if="!showPokemon" :src="pokemonImage" alt="Pokémon" class="brightness-0 h-[200px]" />
+        <img v-else :src="pokemonImage" class="fade-in h-[200]" alt="pokemon Image"/>
     </section>
 </template>
 
 <script lang="ts" setup>
+import { computed } from 'vue';
+interface Props {
+    pokemonId: number;
+    showPokemon?: boolean;
+}
+
+// Definimos un valor por defecto
+const props = withDefaults(defineProps<Props>(),{
+    showPokemon: false,
+});
+
+const pokemonImage=computed(()=>`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${ props.pokemonId}.svg`)
+
 </script>
 
 <style scope>
